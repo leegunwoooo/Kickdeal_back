@@ -14,10 +14,8 @@ public class JoinController {
     private final JoinService joinService;
 
     @PostMapping("/join")
-    public String joinProcess(@RequestBody JoinDTO joinDTO){
-        joinService.joinprocess(joinDTO);
-
-        return "ok";
+    public String joinProcess(@RequestBody JoinDTO joinDTO) {
+        return joinService.joinprocess(joinDTO);
     }
 
 }

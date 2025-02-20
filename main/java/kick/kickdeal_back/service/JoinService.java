@@ -15,22 +15,18 @@ public class JoinService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    public void joinprocess(JoinDTO dto){
-        String id = dto.getId();
-        String password = dto.getPassword();
-
-        Boolean isExist = userRepository.existsById(id);
-
-        if(isExist){
-            return;
+    public String joinprocess(JoinDTO dto) {
+        if (userRepository.existsById(dto.getId()) || userRepository.existsByEmail(dto.getEmail())) {
+            return "fail";
         }
 
-        User data = new User();
+        User user = new User();
+        user.setId(dto.getId());
+        user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        user.setEmail(dto.getEmail());
+        user.setRole("ROLE_ADMIN");
 
-        data.setId(id);
-        data.setPassword(bCryptPasswordEncoder.encode(password));
-        data.setRole("ROLE_ADMIN");
-
-        userRepository.save(data);
+        userRepository.save(user);
+        return "ok";
     }
 }
