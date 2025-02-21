@@ -16,14 +16,13 @@ public class JoinService {
 
 
     public String joinprocess(JoinDTO dto) {
-        if (userRepository.existsById(dto.getId()) || userRepository.existsByEmail(dto.getEmail())) {
+        if (userRepository.existsById(dto.getId())) {
             return "fail";
         }
 
         User user = new User();
         user.setId(dto.getId());
         user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-        user.setEmail(dto.getEmail());
         user.setRole("ROLE_ADMIN");
 
         userRepository.save(user);
