@@ -49,7 +49,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("login", "/", "/join").permitAll()
+                        .requestMatchers("login", "/", "/join", "/email").permitAll()
                         .requestMatchers("/Admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
